@@ -6,6 +6,7 @@ import 'ag-grid-community/dist/styles/ag-theme-material.css';
 //import { Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddCustomer from './AddCustomer';
+import EditCustomer from './EditCustomer';
 
 function Customers() {
 
@@ -34,6 +35,19 @@ function Customers() {
         })
         .then(_ => gridRef.current.refreshCells({rowNodes: getCustomers()}))
         .then(_ => setMsg('Added succesfully!'))
+        .then(_ => setOpen(true))
+        .catch(err => console.error(err))
+    }
+
+    const updateCustomer = (link, customer) => {
+        fetch(link.links[0].href, {
+            method: 'PUT',
+            headers: {'Content-type' : 'application/json' },
+            body: JSON.stringify(customer)
+        })
+        .then(_ => gridRef.current.refreshCells({rowNodes: getCustomers()}))
+        .then(_ => setMsg('Updated succesfully!'))
+        .then(_ => setOpen(true))
         .catch(err => console.error(err))
     }
 
@@ -50,7 +64,19 @@ function Customers() {
         { headerName: 'City', field: 'city', sortable: true, filter: true },
         { headerName: 'Email', field: 'email', sortable: true, filter: true },
         { headerName: 'Phone', field: 'phone', sortable: true, filter: true },
-
+        {
+            headerName: '',
+ //   field: 'links[0].href',
+            width: 90,
+            cellRendererFramework: (row) =>  (
+            <EditCustomer updateCustomer={updateCustomer} customer={row.data} />
+            )}
+  /*      {
+            headerName: '',
+            field: 'links[0].href',
+            width: 90,
+        }
+    */
     ]
 
     return(
