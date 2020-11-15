@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
-//import { Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
@@ -40,15 +40,29 @@ function Customers() {
     }
 
     const updateCustomer = (link, customer) => {
-        fetch(link.links[0].href, {
-            method: 'PUT',
-            headers: {'Content-type' : 'application/json' },
-            body: JSON.stringify(customer)
-        })
-        .then(_ => gridRef.current.refreshCells({rowNodes: getCustomers()}))
-        .then(_ => setMsg('Updated succesfully!'))
-        .then(_ => setOpen(true))
-        .catch(err => console.error(err))
+        if (window.confirm('You really want to update?')) {
+            fetch(link.links[0].href, {
+                method: 'PUT',
+                headers: {'Content-type' : 'application/json' },
+                body: JSON.stringify(customer)
+            })
+            .then(_ => gridRef.current.refreshCells({rowNodes: getCustomers()}))
+            .then(_ => setMsg('Updated!!!'))
+            .then(_ => setOpen(true))
+            .catch(err => console.error(err))
+        }
+    }
+
+    const deleteCustomer = (link) => {
+        if (window.confirm('You really want to delete?')) {
+            fetch(link.links[0].href, {
+                method: 'DELETE'
+            })
+            .then(_ => gridRef.current.refreshCells({rowNodes: getCustomers()}))
+            .then(_ => setMsg('Deleted!!!'))
+            .then(_ => setOpen(true))
+            .catch(err => console.error(err))
+        }
     }
 
     const closeSnackbar = () => {
@@ -66,17 +80,21 @@ function Customers() {
         { headerName: 'Phone', field: 'phone', sortable: true, filter: true },
         {
             headerName: '',
- //   field: 'links[0].href',
             width: 90,
             cellRendererFramework: (row) =>  (
-            <EditCustomer updateCustomer={updateCustomer} customer={row.data} />
-            )}
-  /*      {
+                <EditCustomer updateCustomer={updateCustomer} customer={row.data} />
+            )},
+        {
             headerName: '',
-            field: 'links[0].href',
             width: 90,
+            cellRendererFramework: (row) => (
+                <Button color="secondary" size="small"
+                onClick={() => deleteCustomer(row.data)}>
+                    Delete
+                </Button>
+            )
         }
-    */
+    
     ]
 
     return(
