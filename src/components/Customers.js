@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-//import Trainings from './Trainings';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -7,10 +6,13 @@ import { Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
+import AddTraining from './AddTraining';
+import Trainings from './Trainings';
 
 function Customers() {
 
     const [customers, setCustomers] = useState([]);
+    const [trainings, setTrainings] = useState([]);
     const [open, setOpen] = useState(false);
     const [msg, setMsg] = useState('');
 
@@ -24,6 +26,17 @@ function Customers() {
         fetch('https://customerrest.herokuapp.com/api/customers/')
         .then(response => response.json())
         .then(data => setCustomers(data.content))
+        .catch(err => console.error(err))
+    }
+
+    useEffect(() => {
+        getTrainings();
+    }, [])
+    
+    const getTrainings = () => {
+        fetch('https://customerrest.herokuapp.com/api/trainings')
+        .then(response => response.json())
+        .then(data => setTrainings(data))
         .catch(err => console.error(err))
     }
 
@@ -52,6 +65,19 @@ function Customers() {
             .catch(err => console.error(err))
         }
     }
+    const addTraining = (newTraining) => {
+        if (window.confirm('You really want to add?')) {
+            fetch('https://customerrest.herokuapp.com/api/trainings', {
+                method: 'POST',
+                headers: {'Content-type' : 'application/json' },
+                body: JSON.stringify(newTraining)
+            })
+            .then(_ => gridRef.current.refreshCells({rowNodes: getTrainings()}))
+            .then(_ => setMsg('Training added!!!'))
+            .then(_ => setOpen(true))
+            .catch(err => console.error(err))
+        }
+    }
 
     const deleteCustomer = (link) => {
         if (window.confirm('You really want to delete?')) {
@@ -66,11 +92,16 @@ function Customers() {
     }
 
     const closeSnackbar = () => {
-
         setOpen(false);
     }
 
     const columns = [
+        {
+            headerName: '',
+            width: 170,
+            cellRendererFramework: (row) =>  (
+                <AddTraining addTraining={addTraining} training={row.data} />
+            )},
         { headerName: 'First name', field: 'firstname', sortable: true, filter: true },
         { headerName: 'Last name', field: 'lastname', sortable: true, filter: true },
         { headerName: 'Street address', field: 'streetaddress', sortable: true, filter: true },
@@ -93,8 +124,7 @@ function Customers() {
                     Delete
                 </Button>
             )
-        }
-    
+        },
     ]
 
     return(
