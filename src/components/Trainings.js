@@ -3,7 +3,6 @@ import { AgGridReact } from 'ag-grid-react';
 import moment from 'moment';
 import { Button } from '@material-ui/core';
 import Snackbar from '@material-ui/core/Snackbar';
-//import moment from 'moment';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';

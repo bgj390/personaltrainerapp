@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Trainings from './components/Trainings';
 import Customers from './components/Customers';
+import Calendar from './components/TrainingsCalendar';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -27,10 +28,12 @@ function App() {
         <Tabs value={value} onChange={handleChange} centered>
           <Tab value="customers" label="Customers" />
           <Tab value="trainings" label="Trainings" />
+          <Tab value="calendar" label="Calendar" />
         </Tabs>
       </AppBar>
       {value === 'customers' && <div><Customers /></div>}
       {value === 'trainings' && <div><Trainings /></div>}
+      {value === 'calendar' && <div><Calendar /></div>}
     </div>
   );
 }

@@ -10,23 +10,13 @@ import {
     MuiPickersUtilsProvider,
     DatePicker } from '@material-ui/pickers';
 import moment from 'moment';
-//import Customers from './Customers';
-
 
 function AddTraining(props) {
     const [training, setTraining] = useState({customer: '', date: '', duration: '', activity: ''});
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
-        console.log(props.training);
-/*
-        setTraining({ 
-            ...training,
-            firstname: props.customer.firstname,
-            lastname: props.customer.lastname,
-        
-       }); 
-*/        
+        console.log(props.training);       
         setOpen(true);
     };
    
