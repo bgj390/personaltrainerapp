@@ -17,7 +17,10 @@ function TrainingsCalendar() {
         .then(response => response.json())
         .then(data => setTrainings(data.map((training) => (
             {
-                title: training.activity,
+                title: training.activity + ' / ' + 
+                    training.customer.firstname + ' ' + 
+                    training.customer.lastname + ' ' +
+                    training.duration + 'min',
                 start: moment.utc(training.date)._d,
                 end: moment.utc(training.date).add(training.duration, 'minutes')._d,
                 resource: training.customer.id
@@ -25,20 +28,7 @@ function TrainingsCalendar() {
         )))
         .catch(err => console.error(err))
     }
-/*
-    const events = trainings.map((training) => {
-        return {
-          id: training.id,
-          title: training.activity,
-          duration: training.duration,
-          firstname: training.customer.firstname,
-          lastname: training.customer.lastname,
-          start: new Date(training.date),
-          end: new Date(training.date),
-          allDay: false
-        }
-      })
-*/  
+
       return (
         <div className="TrainingsCalendar">
           <Calendar
