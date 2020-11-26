@@ -9,11 +9,11 @@ function TrainingsCalendar() {
     const [trainings, setTrainings] = useState([])
 
     useEffect(() => {
-      getTrainings()
+        getTrainings()
     });
 
     const getTrainings = () => {
-      fetch('https://customerrest.herokuapp.com/gettrainings')
+        fetch('https://customerrest.herokuapp.com/gettrainings')
         .then(response => response.json())
         .then(data => setTrainings(data.map((training) => (
             {
@@ -29,9 +29,9 @@ function TrainingsCalendar() {
         .catch(err => console.error(err))
     }
 
-      return (
+    return (
         <div className="TrainingsCalendar">
-          <Calendar
+        <Calendar
             localizer={localizer}
             defaultDate={new Date()}
             defaultView='month'
@@ -39,10 +39,10 @@ function TrainingsCalendar() {
             resourceAccessor='resource'
             startAccessor='start'
             endAccessor='end'
-            style={{ height: "100vh" }}
-          />
+            style={{ height: "75vh" }}
+        />
         </div>
-      );
-  }
+    );
+}
   
   export default TrainingsCalendar;
