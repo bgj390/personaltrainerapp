@@ -25,6 +25,7 @@ function Stats() {
     }
 
     return (
+        <div>
         <VictoryChart domainPadding={20}>
             <VictoryBar style={{
                 data: { fill: '#c43a31' }
@@ -32,6 +33,7 @@ function Stats() {
             data={fetchData()} x="activity" y="mins"
             />
         </VictoryChart>
+        </div>
     )
 }
 
