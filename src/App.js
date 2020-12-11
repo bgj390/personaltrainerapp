@@ -23,7 +23,7 @@ function App() {
       <AppBar position="sticky">
         <Toolbar>
           <Typography variant="h4">
-            Personal Trainer App
+            ** Personal Trainer App **
           </Typography>
         </Toolbar>
         <Tabs value={value} onChange={handleChange} centered>
