@@ -30,7 +30,7 @@ function App() {
           <Tab value="customers" label="Customers" />
           <Tab value="trainings" label="Trainings" />
           <Tab value="calendar" label="Calendar" />
-          <Tab value="stats" label="stats" />
+          <Tab value="stats" label="Stats" />
         </Tabs>
       </AppBar>
       {value === 'customers' && <div><Customers /></div>}
