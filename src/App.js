@@ -29,11 +29,13 @@ function App() {
           <Tab value="customers" label="Customers" />
           <Tab value="trainings" label="Trainings" />
           <Tab value="calendar" label="Calendar" />
+          <Tab value="statistics" label="Stats" />
         </Tabs>
       </AppBar>
       {value === 'customers' && <div><Customers /></div>}
       {value === 'trainings' && <div><Trainings /></div>}
       {value === 'calendar' && <div><Calendar /></div>}
+      {value === 'statistics' && <div><Stats /></div>}
     </div>
   );
 }
