@@ -36,7 +36,7 @@ function App() {
       {value === 'customers' && <div><Customers /></div>}
       {value === 'trainings' && <div><Trainings /></div>}
       {value === 'calendar' && <div><Calendar /></div>}
-      {value === 'stats' && <div><Stats /></div>}
+      {value === 'stats' && <div>Under construction</div>}
     </div>
   );
 }
