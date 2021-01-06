@@ -3,7 +3,7 @@ import './App.css';
 import Trainings from './components/Trainings';
 import Customers from './components/Customers';
 import Calendar from './components/TrainingsCalendar';
-import Stats from './components/Stats';
+//import Stats from './components/Stats';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -30,15 +30,20 @@ function App() {
           <Tab value="customers" label="Customer" />
           <Tab value="trainings" label="Trainings" />
           <Tab value="calendar" label="Calendar" />
-          <Tab value="stats" label="Stats" />
+
         </Tabs>
       </AppBar>
       {value === 'customers' && <div><Customers /></div>}
       {value === 'trainings' && <div><Trainings /></div>}
       {value === 'calendar' && <div><Calendar /></div>}
-      {value === 'stats' && <div>Under construction</div>}
+
     </div>
   );
 }
 
 export default App;
+
+/*
+<Tab value="stats" label="Stats" />
+{value === 'stats' && <div>Under construction</div>}
+*/
